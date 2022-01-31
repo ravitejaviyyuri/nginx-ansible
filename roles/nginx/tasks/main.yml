@@ -1,8 +1,4 @@
 ---
-- hosts: all
-  gather_facts: yes
-  roles:
-    - nginx
 - name: Install NGINX From Apt-Get
   become: yes
   apt:
@@ -19,7 +15,7 @@
   file:
     path: /etc/nginx/sites-available/nodejs.conf
     state: touch
-  
+
 - name: Amend NGINX Conf File
   become: yes
   blockinfile:
@@ -29,15 +25,16 @@
         server {
             listen 80;
             location / {
-                proxy_pass http://192.168.28.72:5601;
+                proxy_pass http://0.0.0.0:100;
                 proxy_set_header Authorization "";
                 proxy_read_timeout 90s;
             }
         }
+
 - name: Link NGINX nodejs Reverse Proxy
   become: yes
   command:
-    cmd: ln -s /etc/nginx/sites-available/nodejs.conf /etc/nginx/sites-enabled/nodejs.conf
+    cmd: ln -s /etc/nginx/sites-available/kibana_proxy.conf /etc/nginx/sites-enabled/nodejs.conf
 
 - name: Make Sure NGINX Service Is Running
   become: yes
