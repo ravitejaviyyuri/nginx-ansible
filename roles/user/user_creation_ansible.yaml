@@ -1,0 +1,29 @@
+---
+- name: Create user on a linux server
+  hosts: remote-server
+  become: yes
+  gather_facts: false
+  vars:
+    - user: deployment
+    - password: deployment@123
+  tasks:
+      - name: Create a login user
+        user:
+          name: "{{ user }}"
+          password: "{{ password }}"
+          groups:
+            - deployment
+          state: present
+
+      - name: Add public key to authorized_keys
+        authorized_key:
+          user: "{{ user }}"
+          state: present
+          key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+
+      - name: Add {{ user }} to sudoers file
+        ansible.builtin.lineinfile:
+          path: /etc/sudoers
+          regexp: '^{{ user }}'
+          line: '{{ user }} ALL=(ALL) NOPASSWD: ALL'
+          validate: 'visudo -cf %s'
