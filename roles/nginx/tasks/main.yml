@@ -5,10 +5,10 @@
     name: nginx
     state: present
 
-- name: Disable NGINX Default Virtual Host
-  become: yes
-  command:
-    cmd: unlink /etc/nginx/sites-enabled/default
+# - name: Disable NGINX Default Virtual Host
+#   become: yes
+#   command:
+#     cmd: unlink /etc/nginx/sites-enabled/default
 
 - name: Create NGINX Conf File For nodejs
   become: yes
