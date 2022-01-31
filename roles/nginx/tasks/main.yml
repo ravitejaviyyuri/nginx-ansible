@@ -34,7 +34,7 @@
 - name: Link NGINX nodejs Reverse Proxy
   become: yes
   command:
-    cmd: ln -s /etc/nginx/sites-available/kibana_proxy.conf /etc/nginx/sites-enabled/nodejs.conf
+    cmd: ln -s /etc/nginx/sites-available/nodejs.conf /etc/nginx/sites-enabled/nodejs.conf
 
 - name: Make Sure NGINX Service Is Running
   become: yes
