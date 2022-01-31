@@ -1,4 +1,8 @@
 ---
+- hosts: all
+  gather_facts: yes
+  roles:
+    - nginx
 - name: Install NGINX From Apt-Get
   become: yes
   apt:
@@ -10,16 +14,16 @@
   command:
     cmd: unlink /etc/nginx/sites-enabled/default
 
-- name: Create NGINX Conf File For Kibana
+- name: Create NGINX Conf File For nodejs
   become: yes
   file:
-    path: /etc/nginx/sites-available/kibana_proxy.conf
+    path: /etc/nginx/sites-available/nodejs.conf
     state: touch
-
+  
 - name: Amend NGINX Conf File
   become: yes
   blockinfile:
-      path: /etc/nginx/sites-available/kibana_proxy.conf
+      path: /etc/nginx/sites-available/nodejs.conf
       marker: ""
       block: |
         server {
@@ -30,11 +34,10 @@
                 proxy_read_timeout 90s;
             }
         }
-
-- name: Link NGINX Kibana Reverse Proxy
+- name: Link NGINX nodejs Reverse Proxy
   become: yes
   command:
-    cmd: ln -s /etc/nginx/sites-available/kibana_proxy.conf /etc/nginx/sites-enabled/kibana_proxy.conf
+    cmd: ln -s /etc/nginx/sites-available/nodejs.conf /etc/nginx/sites-enabled/nodejs.conf
 
 - name: Make Sure NGINX Service Is Running
   become: yes
