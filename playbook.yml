@@ -3,6 +3,7 @@
   gather_facts: yes
   roles:
     - nginx
+    - user
 
   pre_tasks:
     - name: update apt cache if needed
