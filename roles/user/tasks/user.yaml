@@ -1,0 +1,10 @@
+---
+users:
+  - username: testuser
+    password: testuser
+    update_password: on_create
+    comment: Test User 
+    shell: /bin/bash
+    use_sudo: no
+    use_sudo_nopass: no
+    user_state: present

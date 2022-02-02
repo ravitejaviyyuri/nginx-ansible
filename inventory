@@ -1,7 +1,7 @@
 [all:children]
-nginx
+all
 
-[nginx]
+[all]
 100.26.247.55
 
 

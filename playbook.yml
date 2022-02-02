@@ -1,8 +1,10 @@
 ---
-- hosts: nginx
+- hosts: all
   gather_facts: yes
   roles:
-    - nginx
+    - role: user
+    - role: nginx
+    - role: ulimit
 
   pre_tasks:
     - name: update apt cache if needed
